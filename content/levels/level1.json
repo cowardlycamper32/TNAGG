@@ -1,0 +1,15 @@
+{
+  "level": {
+    "rooms": [
+      {
+        "ID": "tutorial:01",
+        "exits": [
+          "tutorial:02"
+        ],
+        "entities": [
+
+        ]
+      }
+    ]
+  }
+}

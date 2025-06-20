@@ -1,0 +1,11 @@
+[
+  {
+    "ID": "01",
+    "intName": "tutorial text",
+    "type": "generic:text",
+    "contnt": [
+      "Welcome to the game",
+      "This is NOT a good game"
+    ]
+  }
+]
