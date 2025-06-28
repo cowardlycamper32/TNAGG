@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "level": {
+      "type": "object",
+      "properties": {
+        "rooms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "ID": {
+                "type": "string",
+                "pattern": "^[a-z]{1,}:[0-9]{1,}$"
+              },
+              "exits": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[a-z]{1,}:[0-9]{1,}$"
+                }
+              },
+              "entities": {"type":  "array"}
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": ["level"]
+}

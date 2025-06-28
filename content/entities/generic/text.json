@@ -1,0 +1,16 @@
+{
+    "type": "object",
+    "properties": {
+        "ID": {"type": "string"},
+        "name": {"type": "string"},
+        "type": {
+            "enum": ["generic:text"]
+        },
+        "content": {"type": "array",
+                    "items": {
+                        "type": "string"
+                    }},
+        "intName": {"type": "string"}
+    },
+    "required": ["ID", "content"]
+}
