@@ -1,1 +1,0 @@
-open("./logs/gay.txt", "a+")

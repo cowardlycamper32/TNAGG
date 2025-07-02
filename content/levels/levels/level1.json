@@ -1,12 +1,19 @@
 {
-  "levl": {
+  "level": {
     "rooms": [
       {
         "ID": "tutorial:01",
         "exits": [
           "tutorial:02"
         ],
-        "entities": []
+        "entities": ["level1/01"]
+      },
+      {
+        "ID": "tutorial:02",
+        "exits": [
+          "tutorial:03", "tutorial:02"
+        ],
+        "entities": ["level1/02"]
       }
     ]
   }

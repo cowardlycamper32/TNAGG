@@ -7,5 +7,15 @@
       "Welcome to the game",
       "This is NOT a good game"
     ]
+  },
+  {
+    "ID": "02",
+    "intName": "tutorial text 2",
+    "type": "generic:text",
+    "content": [
+      "You can move around with the WASD keys",
+      "Wait wrong game",
+      "#TODO: Remove this text entity"
+    ]
   }
 ]
