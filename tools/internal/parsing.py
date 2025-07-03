@@ -3,7 +3,7 @@ import json
 from jsonValidation import validator
 from utils import getAbsPath, safeExit
 import log as log
-
+from loguru import logger
 
 
 
@@ -36,6 +36,7 @@ class Parser:
 
 
 
+
 class Level:
     def __init__(self, js):
         rooms = []
@@ -44,7 +45,7 @@ class Level:
                 temp = Room(room["ID"], room["exits"], room["entities"])
                 rooms.append(temp)
             except (KeyError, IndexError):
-                log.WriteLog("room " + room["ID"] + " has errors", "error")
+                logger.warning("room " + room["ID"] + " has errors", "error")
 
 class Room:
     def __init__(self, id, exits, entities):

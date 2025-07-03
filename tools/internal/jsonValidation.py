@@ -6,6 +6,7 @@ from sys import argv
 import log as log
 import inspect
 import utils
+from loguru import logger
 def validator(tool: bool = False, logid = None):
 
 
@@ -31,7 +32,7 @@ def validator(tool: bool = False, logid = None):
         temp.close()
 
         entitiesGen["generic:" + file.name.split(".")[0]] = js
-    log.WriteLog("Generic Entity Dictionary Generated", "INFO")
+    logger.success("Generic Entity Dictionary Generated")
 
     for file in sd(_levelsPath + "generic/"):
         temp = open(file)
@@ -39,7 +40,7 @@ def validator(tool: bool = False, logid = None):
         temp.close()
 
         levelsGen.append(js)
-    log.WriteLog("Generic Level List Generated", "INFO")
+    logger.success("Generic Level List Generated")
 
     for file in sd(_entitiesPath + "entities/"):
         temp = open(file)
@@ -54,23 +55,23 @@ def validator(tool: bool = False, logid = None):
                     except jsonschema.exceptions.ValidationError as e:
                         if tool:
                             if len(argv) != 2:
-                                log.WriteLog("Validation Error in '" + file.path + "': " + e.message, "ERROR")
+                                logger.critical("Validation Error in '" + file.path + "': " + e.message)
                                 log.CloseLog(logid)
                                 exit(f"Validation Error in '{file.path}': {e.message}")
                             else:
                                 if argv[1] == "-v" or argv[1] == "--verbose":
-                                    log.WriteLog(jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause, e.context, e.validator_value,
-                                                                                       e.instance, e.schema, e.schema_path, e.parent), "ERROR")
+                                    logger.critical(jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause, e.context, e.validator_value,
+                                                                                       e.instance, e.schema, e.schema_path, e.parent))
                                     log.CloseLog(logid)
                                     raise jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause, e.context, e.validator_value,
                                                                             e.instance, e.schema, e.schema_path, e.parent)
                                 else:
-                                    log.WriteLog("Validation Error in '" + file.path + "': " + e.message, "ERROR")
+                                    logger.critical("Validation Error in '" + file.path + "': " + e.message)
                                     log.CloseLog(logid)
                                     exit(f"Validation Error in '{file.name}': {e.cause}")
                         else:
-                            log.WriteLog("Validation Error in '" + file.path + "': " + e.message, "WARN")
-    log.WriteLog("All Entities Correct", "info")
+                           logger.warning("Validation Error in '" + file.path + "': " + e.message)
+    logger.success("All Entities Correct")
 
     for file in sd(_levelsPath + "levels"):
         temp = open(file)
@@ -82,26 +83,26 @@ def validator(tool: bool = False, logid = None):
             except jsonschema.exceptions.ValidationError as e:
                 if tool:
                     if len(argv) != 2:
-                        log.WriteLog("Validation Error in '" + file.path + "': " + e.message, "ERROR")
+                        logger.critical("Validation Error in '" + file.path + "': " + e.message)
                         log.CloseLog(logid)
                         exit(f"Validation Error in '{file.path}': {e.message}")
                     else:
                         if argv[1] == "-v" or argv[1] == "--verbose":
-                            log.WriteLog(
+                            logger.critical(
                                 str(jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause, e.context,
                                                                       e.validator_value,
-                                                                      e.instance, e.schema, e.schema_path, e.parent)), "ERROR")
+                                                                      e.instance, e.schema, e.schema_path, e.parent)))
                             log.CloseLog(logid)
                             raise jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause, e.context,
                                                                     e.validator_value,
                                                                         e.instance, e.schema, e.schema_path, e.parent)
                         else:
-                            log.WriteLog("Validation Error in '" + file.path + "': " + e.message, "ERROR")
+                            logger.critical("Validation Error in '" + file.path + "': " + e.message)
                             log.CloseLog(logid)
                             exit(f"Validation Error in '{file.name}': {e.cause}")
                 else:
-                    log.WriteLog("Validation Error in '" + file.path + "': " + e.message, "WARN")
-    log.WriteLog("All levels correct", "info")
+                    logger.warning("Validation Error in '" + file.path + "': " + e.message)
+    logger.success("All levels correct")
 
 
 if __name__ == "__main__":

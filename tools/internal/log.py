@@ -1,11 +1,12 @@
 import inspect
 import os.path
 import time
-from os import mkdir
+from os import mkdir, scandir, stat, listdir
 from loguru import logger as log
 from utils import getFileCalledFrom, getAbsPath
 
 def init(path, file):
+    removeOldLogs(path)
     filePath = path + file
     if not os.path.isdir(path + "oldlogs"):
         mkdir(path + "oldlogs")
@@ -15,39 +16,21 @@ def init(path, file):
         except PermissionError:
             pass
         open(filePath, "w").close()
-    logid = log.add(filePath, format="[{time:DD-MM-YYYY HH:mm:ss}][{level}][line {line}]{message}", level="TRACE")
-    WriteLog("Log Initialised in '" + getFile() + "'", "success")
+    logid = log.add(filePath, format="[{time:DD-MM-YYYY HH:mm:ss}][{level}][line {line}][{file}]{message}", level="TRACE")
     return logid
-
-def WriteLog(message, type):
-    match type.lower():
-        case "info":
-            log.info("[" + getFile() + "] " + message)
-        case "debug":
-            log.debug("[" + getFile() + "] " + message)
-        case "warn":
-            log.warning("[" + getFile() + "] " + message)
-        case "warning":
-            log.warning("[" + getFile() + "] " + message)
-        case "error":
-            log.error("[" + getFile() + "] " + message)
-        case "err":
-            log.error("[" + getFile() + "] " + message)
-        case "except":
-            log.exception("[" + getFile() + "] " + message)
-        case "success":
-            log.success("[" + getFile() + "] " + message)
-        case "critical":
-            log.critical("[" + getFile() + "] " + message)
-        case "crit":
-            log.critical("[" + getFile() + "] " + message)
-        case _:
-            WriteLog("Erroneous log type, quiting.", "critical")
-            exit(1024)
-
-
-def getFile():
-    return inspect.currentframe().f_back.f_code.co_filename.split("\\")[-1]
 
 def CloseLog(logid: int):
     log.remove(logid)
+
+
+def removeOldLogs(path):
+    while len(listdir(path + "oldlogs")) >= 3: # REMEMBER GO ONE ABOVE DESIRED LOG OUTPUT OTHERWISE IT WILL GO ONE UNDER
+        oldest = 0
+        oldestName = ""
+        for file in scandir(path + "oldlogs"):
+            if time.time() - file.stat().st_mtime > oldest:
+                oldest = time.time() - file.stat().st_mtime
+                oldestName = file.path
+        os.remove(oldestName)
+
+
