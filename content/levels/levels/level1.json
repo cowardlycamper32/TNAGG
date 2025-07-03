@@ -6,7 +6,7 @@
         "exits": [
           "tutorial:02"
         ],
-        "entities": ["level1/01"]
+        "entities": ["level1/00","level1/01"]
       },
       {
         "ID": "tutorial:02",

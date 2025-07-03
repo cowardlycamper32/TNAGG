@@ -6,7 +6,8 @@
     "content": [
       "Welcome to the game",
       "This is NOT a good game"
-    ]
+    ],
+    "location": "north"
   },
   {
     "ID": "02",
@@ -16,6 +17,13 @@
       "You can move around with the WASD keys",
       "Wait wrong game",
       "#TODO: Remove this text entity"
-    ]
+    ],
+    "location": "w"
+  },
+  {
+    "ID": "00",
+    "intName": "spawnPoint",
+    "type": "generic:spawnPoint",
+    "facing": "north"
   }
 ]

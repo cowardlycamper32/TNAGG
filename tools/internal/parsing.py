@@ -39,19 +39,40 @@ class Parser:
 
 class Level:
     def __init__(self, js):
-        rooms = []
+        self.rooms = []
         for room in js["level"]["rooms"]:
             try:
                 temp = Room(room["ID"], room["exits"], room["entities"])
-                rooms.append(temp)
+                self.rooms.append(temp)
+                #print(temp)
             except (KeyError, IndexError):
                 logger.warning("room " + room["ID"] + " has errors", "error")
+    def buildLevel(self):
+        pass
 
 class Room:
     def __init__(self, id, exits, entities):
         self.ID = id
         self.exits = exits,
         self.entities = entities
+
+        self.buildRoom()
+
+    def buildRoom(self):
+        for entity in self.entities:
+            temp = entity.split("/")
+
+
+    def __str__(self):
+        return f"{self.ID}, {self.exits}, {self.entities}"
+
+
+
+class Entity:
+    def __init__(self, ID, js):
+        self.ID = ID
+
+
 
 parser = Parser("levels/levels", "entities/entities", ["entities/generic", "levels/generic"])
 parser.ReadLevel("level1")

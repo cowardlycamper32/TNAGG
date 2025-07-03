@@ -10,7 +10,11 @@
                     "items": {
                         "type": "string"
                     }},
-        "intName": {"type": "string"}
+        "intName": {"type": "string"},
+        "location": {
+            "type": "string",
+            "enum": ["north", "east", "south", "west", "n", "e", "s", "w"]
+        }
     },
-    "required": ["ID", "content"]
+    "required": ["ID", "content", "type", "location"]
 }

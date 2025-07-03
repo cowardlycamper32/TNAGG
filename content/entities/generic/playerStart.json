@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "ID": { "type": "string" },
+    "type": { "type": "string",
+      "enum": ["generic:playerStart"]
+    },
+    "facing": {"type": "string", "enum": ["north", "east", "south", "west", "n", "e", "s", "w"]}
+  },
+  "required": ["type", "ID", "facing"]
+}
