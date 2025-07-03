@@ -10,7 +10,7 @@ import log as log
 class Parser:
     def __init__(self, levelPath, entityPath, genericPaths: [str]):
         self.logid = log.init(getAbsPath(3) + "logs/", "main.log")
-        validator()
+        validator(logid=self.logid)
         self.contentPath = "../../content/"
         self.levelPath = self.contentPath + levelPath + "/"
         self.entityPath = self.contentPath +  entityPath + "/"

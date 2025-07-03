@@ -6,16 +6,17 @@ from sys import argv
 import log as log
 import inspect
 import utils
-def validator(tool: bool = False):
-    if not tool:
-        addon = "../"
-    else:
-        addon = "../../"
+def validator(tool: bool = False, logid = None):
+
 
     #print(joinPath(inspect.currentframe().f_back.f_code.co_filename.split("\\")[0:3]))
 
     _path = utils.getAbsPath(3)
-    logid = log.init(_path + "logs/", "main.log")
+    if tool:
+        logid = log.init(_path + "logs/", "main.log")
+    else:
+        if logid is None:
+            raise AttributeError("Invalid LogID")
     _contentPath = _path + "content/"
     _entitiesPath = _contentPath + "entities/"
     _levelsPath = _contentPath + "levels/"
