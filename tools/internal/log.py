@@ -15,7 +15,7 @@ def init(path, file):
         except PermissionError:
             pass
         open(filePath, "w").close()
-    logid = log.add(filePath, format="[{time: DD-MM-YYYY HH:mm:ss}][{level}][line {line}]{message}", level="TRACE")
+    logid = log.add(filePath, format="[{time:DD-MM-YYYY HH:mm:ss}][{level}][line {line}]{message}", level="TRACE")
     WriteLog("Log Initialised in '" + getFile() + "'", "success")
     return logid
 
@@ -42,7 +42,7 @@ def WriteLog(message, type):
         case "crit":
             log.critical("[" + getFile() + "] " + message)
         case _:
-            WriteLog("Erounous log type, quiting.", "critical")
+            WriteLog("Erroneous log type, quiting.", "critical")
             exit(1024)
 
 
