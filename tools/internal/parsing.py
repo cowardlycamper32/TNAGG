@@ -46,7 +46,7 @@ class Level:
                 self.rooms.append(temp)
                 #print(temp)
             except (KeyError, IndexError):
-                logger.warning("room " + room["ID"] + " has errors", "error")
+                logger.warning("room " + room["ID"] + " has errors")
     def buildLevel(self):
         pass
 
