@@ -6,6 +6,13 @@ import log as log
 from loguru import logger
 
 
+_path = getAbsPath(3) + "content/"
+#print(_path)
+_entityPath = _path + "entities/"
+#print(_entityPath)
+_levelPath = _path + "levels/"
+#print(_levelPath)
+
 
 class Parser:
     def __init__(self, levelPath, entityPath, genericPaths: [str]):
@@ -45,8 +52,8 @@ class Level:
                 temp = Room(room["ID"], room["exits"], room["entities"])
                 self.rooms.append(temp)
                 #print(temp)
-            except (KeyError, IndexError):
-                logger.warning("room " + room["ID"] + " has errors")
+            except (KeyError, IndexError) as e:
+                logger.warning("room " + room["ID"] + " has errors at index " + str(e))
     def buildLevel(self):
         pass
 
@@ -55,12 +62,27 @@ class Room:
         self.ID = id
         self.exits = exits,
         self.entities = entities
+        self.actualEntities = {
+            "north": [],
+            "east": [],
+            "south": [],
+            "west": []
+        }
 
         self.buildRoom()
 
     def buildRoom(self):
-        for entity in self.entities:
-            temp = entity.split("/")
+        temp = self.entities[0].split("/")
+        #print(temp)
+        file = open(_levelPath + "levels/" + temp[0] + ".json")
+        js = json.load(file)
+        file.close()
+        for i in range(len(js)):
+            print(js[i])
+            if js[i].location == "north" or js[i].location == "n":
+                self.actualEntities["north"].append(js[i])
+
+
 
 
     def __str__(self):
@@ -71,8 +93,11 @@ class Room:
 class Entity:
     def __init__(self, ID, js):
         self.ID = ID
-
-
+        try:
+            self.location = js["location"]
+        except (KeyError, IndexError):
+            logger.warning(f"invalid entity at {js["id"]}")
+        print(f"{self.ID}, {self.location}")
 
 parser = Parser("levels/levels", "entities/entities", ["entities/generic", "levels/generic"])
 parser.ReadLevel("level1")
