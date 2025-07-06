@@ -55,6 +55,7 @@ class Level:
             except (KeyError, IndexError) as e:
                 logger.warning("room " + room["ID"] + " has errors at index " + str(e))
                 raise e
+
     def buildLevel(self):
         pass
 
@@ -71,7 +72,7 @@ class Room:
         }
 
         self.buildRoom(level)
-        print(self.actualEntities)
+        #print(self.actualEntities)
 
     def buildRoom(self, level):
         file = open(_levelPath + "levels/" + level + ".json")
@@ -84,17 +85,17 @@ class Room:
             for entity in i["entities"]:
                 for ent in entjs:
                     temp = entity.split("/")
-                    if temp[-1] in ent.values():
-                        if ent["type"] == "generic:spawnPoint":
-                            pass
-                        elif ent["location"] == "north" or ent["location"] == "n":
-                            self.actualEntities["north"].append(ent)
+                    if temp[-1] in ent.values() and ent["type"] != "generic:spawnPoint":
+                        #if ent["type"] == "generic:spawnPoint":
+                            #pass
+                        if ent["location"] == "north" or ent["location"] == "n":
+                            self.actualEntities["north"].append(Entity(ent["ID"], ent))
                         elif ent["location"] == "east" or ent["location"] == "e":
-                            self.actualEntities["east"].append(ent)
+                            self.actualEntities["east"].append(Entity(ent["ID"], ent))
                         elif ent["location"] == "south" or ent["location"] == "s":
-                            self.actualEntities["south"].append(ent)
+                            self.actualEntities["south"].append(Entity(ent["ID"], ent))
                         elif ent["location"] == "west" or ent["location"] == "w":
-                            self.actualEntities["west"].append(ent)
+                            self.actualEntities["west"].append(Entity(ent["ID"], ent))
 
 
 
@@ -108,10 +109,11 @@ class Entity:
     def __init__(self, ID, js):
         self.ID = ID
         try:
-            if
+            if True:
+                pass
             self.location = js["location"]
         except (KeyError, IndexError):
-
+            logger.warning(f"error in entity file {js["intName"]} of type {js["type"]}")
         print(f"{self.ID}, {self.location}")
 
 parser = Parser("levels/levels", "entities/entities", ["entities/generic", "levels/generic"])
