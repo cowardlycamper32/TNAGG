@@ -7,12 +7,19 @@ import log as log
 import inspect
 import utils
 from loguru import logger
-def validator(tool: bool = False, logid = None):
 
 
+def validator(tool: bool = False, logid: int = None) -> None:
     #print(joinPath(inspect.currentframe().f_back.f_code.co_filename.split("\\")[0:3]))
-
-    _path = utils.getAbsPath(3)
+    """
+    :param bool tool: Whether the function is being used outside of the command line, you probably want this to be False
+    :param logid: The numerical ID of the logFile, must be defined if tool is False
+    :type logid: int or None
+    :return: None
+    :rtype: None
+    :raises ValidationError: if tool is True and JSON is formatted incorrectly
+    """
+    _path = utils.getAbsPath(3)  #get full path abs path
     if tool:
         logid = log.init(_path + "logs/", "main.log")
     else:
@@ -24,7 +31,6 @@ def validator(tool: bool = False, logid = None):
 
     entitiesGen = {}
     levelsGen = []
-
 
     for file in sd(_entitiesPath + "generic/"):
         temp = open(file)
@@ -48,8 +54,8 @@ def validator(tool: bool = False, logid = None):
         temp.close()
 
         for entity in js:
-             for key in entitiesGen.keys():
-                 if key == entity["type"]:
+            for key in entitiesGen.keys():
+                if key == entity["type"]:
                     try:
                         validate(entity, entitiesGen[key])
                     except jsonschema.exceptions.ValidationError as e:
@@ -60,17 +66,22 @@ def validator(tool: bool = False, logid = None):
                                 exit(f"Validation Error in '{file.path}': {e.message}")
                             else:
                                 if argv[1] == "-v" or argv[1] == "--verbose":
-                                    logger.critical(jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause, e.context, e.validator_value,
-                                                                                       e.instance, e.schema, e.schema_path, e.parent))
+                                    logger.critical(
+                                        jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause,
+                                                                              e.context, e.validator_value,
+                                                                              e.instance, e.schema, e.schema_path,
+                                                                              e.parent))
                                     log.CloseLog(logid)
-                                    raise jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause, e.context, e.validator_value,
-                                                                            e.instance, e.schema, e.schema_path, e.parent)
+                                    raise jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause,
+                                                                                e.context, e.validator_value,
+                                                                                e.instance, e.schema, e.schema_path,
+                                                                                e.parent)
                                 else:
                                     logger.critical("Validation Error in '" + file.path + "': " + e.message)
                                     log.CloseLog(logid)
                                     exit(f"Validation Error in '{file.name}': {e.cause}")
                         else:
-                           logger.warning("Validation Error in '" + file.path + "': " + e.message)
+                            logger.warning("Validation Error in '" + file.path + "': " + e.message)
     logger.success("All Entities Correct")
 
     for file in sd(_levelsPath + "levels"):
@@ -89,12 +100,15 @@ def validator(tool: bool = False, logid = None):
                     else:
                         if argv[1] == "-v" or argv[1] == "--verbose":
                             logger.critical(
-                                str(jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause, e.context,
-                                                                      e.validator_value,
-                                                                      e.instance, e.schema, e.schema_path, e.parent)))
+                                str(jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause,
+                                                                          e.context,
+                                                                          e.validator_value,
+                                                                          e.instance, e.schema, e.schema_path,
+                                                                          e.parent)))
                             log.CloseLog(logid)
-                            raise jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause, e.context,
-                                                                    e.validator_value,
+                            raise jsonschema.exceptions.ValidationError(e.message, e.validator, e.path, e.cause,
+                                                                        e.context,
+                                                                        e.validator_value,
                                                                         e.instance, e.schema, e.schema_path, e.parent)
                         else:
                             logger.critical("Validation Error in '" + file.path + "': " + e.message)
