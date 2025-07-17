@@ -14,6 +14,10 @@
         "location": {
             "type": "string",
             "enum": ["north", "east", "south", "west", "n", "e", "s", "w"]
+        },
+        "interactType": {
+            "type": "string",
+            "enum": ["onEntry", "onExit", "onInteract"]
         }
     },
     "required": ["ID", "content", "type", "location"]

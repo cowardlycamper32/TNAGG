@@ -7,7 +7,8 @@
       "Welcome to the game",
       "This is NOT a good game"
     ],
-    "location": "north"
+    "location": "north",
+    "interactType": "onEntry"
   },
   {
     "ID": "02",
@@ -18,12 +19,27 @@
       "Wait wrong game",
       "#TODO: Remove this text entity"
     ],
-    "location": "w"
+    "location": "w",
+    "interactType": "onInteract"
   },
   {
     "ID": "00",
     "intName": "spawnPoint",
     "type": "generic:spawnPoint",
     "facing": "north"
+  },
+  {
+    "ID": "04",
+    "intName": "tutorial Enemy 2",
+    "type": "generic:enemy",
+    "HP": 10,
+    "attacks": [
+      {
+        "damage": 3,
+        "target": "enemy"
+      }
+    ],
+    "location": "n",
+    "interactType": "onEntry"
   }
 ]

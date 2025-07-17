@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "generic:enemy"
+      ]
+    },
+    "HP": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "attacks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "damage": {
+            "type": "number"
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "self",
+              "enemy",
+              "summon"
+            ]
+          }
+        }
+      },
+      "location": {
+        "type": "string",
+        "enum": [
+          "north",
+          "east",
+          "south",
+          "west",
+          "n",
+          "e",
+          "s",
+          "w"
+        ]
+      },
+      "interactionType": {
+        "type": "string",
+        "enum": [
+          "onEntry",
+          "onExit",
+          "onInteract",
+          "onRandom"
+        ]
+      }
+    }
+  },
+  "required": ["location", "interactType"]
+}

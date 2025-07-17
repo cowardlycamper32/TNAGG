@@ -13,7 +13,7 @@
         "exits": [
           "tutorial:03", "tutorial:02"
         ],
-        "entities": ["level1/02"]
+        "entities": ["level1/02", "level1/04"]
       }
     ]
   }
