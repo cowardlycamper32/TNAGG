@@ -44,3 +44,25 @@ def joinPath(arr) -> str:
     for i in arr:
         out += i + "/"
     return out
+
+
+def iterate(dict, searchTerm):
+    """
+    Iterator function for search
+    :param dict: each dictionary to check
+    :param searchTerm: the search term to check for
+    :return: True if search term found
+    """
+    #print(dict.values())
+    if searchTerm in dict.values():
+        return True
+
+def search(searchArray, searchTerm: str):
+    """
+    Search for a search term in an array of dictionaries
+    :param searchArray: The array to search through
+    :param searchTerm: the term to search through
+    :return: An array with True where
+    """
+    entityList = list(map(iterate, searchArray, [searchTerm] * len(searchArray)))
+    return entityList

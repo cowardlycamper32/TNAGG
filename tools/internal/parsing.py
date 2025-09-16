@@ -1,8 +1,8 @@
 import json
 
-from jsonValidation import validator
-from utils import getAbsPath
-import log as log
+from tools.internal.jsonValidation import validator
+from tools.internal.utils import getAbsPath
+import tools.internal.log as log
 from loguru import logger
 
 

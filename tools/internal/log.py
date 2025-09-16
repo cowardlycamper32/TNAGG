@@ -3,7 +3,7 @@ import os.path
 import time
 from os import mkdir, scandir, stat, listdir
 from loguru import logger as log
-from utils import getFileCalledFrom, getAbsPath
+from tools.internal.utils import getFileCalledFrom, getAbsPath
 
 def init(path: str, file: str) -> int:
     """

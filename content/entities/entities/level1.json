@@ -41,5 +41,15 @@
     ],
     "location": "n",
     "interactType": "onEntry"
+  },
+  {
+    "ID": "00",
+    "intName": "test2",
+    "type": "generic:text",
+    "content": [
+      "this is a test"
+    ],
+    "location": "e",
+    "interactType": "onInteract"
   }
 ]

@@ -3,9 +3,9 @@ from jsonschema import validate
 import jsonschema.exceptions
 from os import scandir as sd, walk, path
 from sys import argv
-import log as log
+import tools.internal.log as log
 import inspect
-import utils
+import tools.internal.utils as utils
 from loguru import logger
 
 
